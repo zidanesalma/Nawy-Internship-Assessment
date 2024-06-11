@@ -69,8 +69,8 @@ SELECT c.name, best_rank, no_of_students
 FROM colleges c INNER JOIN (
 
                     SELECT s.collegeId as collegeID, min(r.ranking) as best_rank, count(s.id) as no_of_students
-                    FROM students s, rankings r
-                    WHERE s.id = r.studentId AND r.year = '2015' AND r.ranking between 1 AND 3
+                    FROM students s INNER JOIN rankings r ON s.id = r.studentId
+                    WHERE r.year = '2015' AND r.ranking between 1 AND 3
                     GROUP BY s.collegeId
 
                  ) AS temp 
